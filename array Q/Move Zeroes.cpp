@@ -1,7 +1,7 @@
 //https://leetcode.com/problems/move-zeroes/
 
 //first approach:
-//this the firswt approach i came up with ig evryone will came up with this method
+//this the first approach i came up with ig evryone will came up with this method
 //but unfortunately its giving time limit exceed becuz of O(n2) [ 1 for loop and while loop nested in it]
 //I am working on the best approach let see
 class Solution {
