@@ -26,6 +26,13 @@ void InsertAtTail(Node* &tail, int d) {
 }   
 //inserting element at the place we want to.
 void InsertAtPosition(Node* &head,int position,int d){
+    
+        // this code won't work when position is 1 so we have to add condition 
+if(position==1){
+    InsertAtHead(head,d);
+    return;
+    }
+    
     Node* temp= head;
     int cnt=1;
     while(cnt<position-1){
