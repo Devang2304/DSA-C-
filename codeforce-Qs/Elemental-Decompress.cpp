@@ -1,77 +1,73 @@
 #include<bits/stdc++.h>
 using namespace std;
 #define ll long long
+
 int main(){
-    ios_base::sync_with_stdio(false);
-    cin.tie(NULL);
-    cout.tie(NULL);
-    int t;
+    ll t,n,i,j,f;
     cin>>t;
     while(t--){
-        int n;
         cin>>n;
-        int a[n];
-        int x[n+1];
-        int y[n+1];
-        int p=0;
-        for(int i=0;i<n;i++){
-            cin>>a[i];
-            x[i+1]=-1;
-            y[i+1]=-1;
-        }
-        int p1[n];
-        int p2[n];
-        for(int i=0;i<n;i++){
-            p1[i]=0;
-            p2[i]=0;
-        }
-        set<int> s1,s2;
-        for(int i=0;i<n;i++){
-            if(x[a[i]]==-1){
-                x[a[i]]=i;
-                p1[i]=a[i];
-            }
-            else if(y[a[i]]==-1){
-                y[a[i]]=i;
-                p2[i]=a[i];
-            }
-            else p=1;
-        }
-        if(p==1){
-            cout<<"NO"<<endl;
-            continue;
-        }
-        for(int i=0;i<n;i++){
-            if(x[i+1]==-1) s1.insert(i+1);
-            if(y[i+1]==-1) s2.insert(i+1);
-        }
-        for(int i=0;i<n;i++){
-            if(p1[i]==0){
-                auto it=s1.upper_bound(p2[i]);
+        f=0;
+        ll a[n],p[n],q[n],pair[n+1],v[n+1];
+        ll c[n+1]; // increase count
+        
+        priority_queue<ll> q1;
 
-                if(it==s1.begin()){
-                    p=1;
+        for(i=0;i<=n;i++){
+            c[i]=0;
+            v[i]=false;
+        }
+        
+        for(i=0;i<n;i++){
+            cin>>a[i];
+            c[a[i]]++;
+        }
+        for(i=1;i<=n;i++){
+            if(c[i]==0){
+                q1.push(i);
+            }
+        }
+
+        for(i=n;i>=1;i--){
+            if(c[i]==1){
+                pair[i]=i;
+            }else if(c[i]==2){
+                if(q1.top()<i){
+                    pair[i]=q1.top();
+                    pair[q1.top()]=i;
+                    q1.pop();
+                }else{
+                    f++;
                     break;
                 }
-                else{
-                    it--;
-                    p2[i]=*it;
-                    s2.erase(it);
-                }
+            }else if(c[i]>2){
+                f++;
+                break;
             }
         }
-        if(p==1){
+        if(f>0){
             cout<<"NO"<<endl;
             continue;
         }
         cout<<"YES"<<endl;
-        for(int i=0;i<n;i++){
-            cout<<p1[i]<<" ";
+        for(i=0;i<n;i++){
+            if(v[a[i]]==false){
+                p[i]=a[i];
+                q[i]=pair[a[i]];
+                v[a[i]]=true;
+            }else{
+                p[i]=pair[a[i]];
+                q[i]=a[i];
+            }
         }
-        cout<<"\n";
-        for(int i=0;i<n;i++){
-            cout<<p2[i]<<" ";
+        for(i=0;i<n;i++){
+            cout<<p[i]<<" ";
         }
+        cout<<endl;
+        for(i=0;i<n;i++){
+            cout<<q[i]<<" ";
+        }
+        cout<<endl;
     }
     return 0;
 }
